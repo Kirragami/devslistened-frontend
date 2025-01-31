@@ -1,4 +1,3 @@
-/* Global Styles */
 :root {
   --bg-color: #101414;
   --hover-bg-color: rgb(18, 13, 31);
@@ -46,15 +45,16 @@ main {
   overflow: hidden;
 }
 
-.left-sidebar,
-.right-sidebar {
+.left-sidebar {
   background-color: var(--secondary-color);
   padding: 1rem;
   height: 100%;
 }
 
 .content {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 0 1rem;
   flex: 1;
   overflow: hidden;
 }
@@ -62,7 +62,6 @@ main {
 .posts {
   height: 100%;
   background-color: var(--bg-color);
-  
   border-radius: 10px;
   overflow-y: auto;
   -ms-overflow-style: none;
@@ -93,7 +92,6 @@ main {
 .search-bar input {
   line-height: 28px;
   padding: 0 1rem;
-  padding-left: 2.5rem;
   transition: .3s ease;
   padding: 0.5rem;
   width: 500px;
@@ -102,11 +100,10 @@ main {
   border-radius: 20px;
   background-color: rgba(33, 33, 33, 0.294);
   color: var(--text-color);
+  padding-left: 40px;
+
 }
 
-.search-bar input::placeholder {
-  padding-left: 30px;
-}
 
 .search-bar .icon {
   position: absolute;
@@ -124,32 +121,21 @@ main {
   box-shadow: -3px -3px 15px rgb(255, 255, 255);
   transition: .1s;
   transition-property: box-shadow;
+
 }
 
-/* From Uiverse.io by Yaseen549 */
-.input {
-  background-color: #212121;
-  max-width: 190px;
-  height: 40px;
-  padding: 10px;
-  /* text-align: center; */
-  border: 2px solid white;
-  border-radius: 5px;
-  /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
-}
+
 
 
 
 .nav-right {
   display: flex;
   align-items: center;
-  /* Ensure vertical alignment */
   gap: 1rem;
 }
 
 .icon-button {
   padding: 0.5rem;
-  /* Consistent padding */
 }
 
 
@@ -194,16 +180,20 @@ main {
   transition: 0.3s ease;
 }
 
-/* Main Content */
+
+
 main {
   display: grid;
-  grid-template-columns: 200px 1fr 300px;
+  grid-template-columns: 200px 1fr;
   gap: 1rem;
-  padding: 1rem 1rem 0 1rem;
+  padding: 0 1rem 0 1rem;
 }
 
 .left-sidebar {
   border-right: 1px solid gray;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .left-sidebar,
@@ -218,8 +208,14 @@ main {
 }
 
 .left-sidebar h2 {
-  font-size: 1rem;
-  padding-bottom: 10px;
+  padding: 7px 0;
+  font-size: 13px;
+}
+
+.left-sidebar-header {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
   border-bottom: 1px solid gray;
 }
 
@@ -228,14 +224,38 @@ main {
   cursor: pointer;
 }
 
+.left-sidebar-game-community {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.left-sidebar-game-community img {
+  display: block;
+  height: 30px;
+  width: 30px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  border: 2px solid var(--text-color);
+}
+
+.left-sidebar-game-community span {
+  font-size: 15px;
+}
+
 .content {
   background-color: var(--bg-color);
   border-radius: 10px;
-
 }
 
 /* Tabs and Tags */
-.tabs {
+/* .tabs {
   display: flex;
   margin-bottom: 1rem;
 }
@@ -246,12 +266,51 @@ main {
   color: var(--text-color);
   padding: 0.5rem 1rem;
   cursor: pointer;
-  border-bottom: 1px solid transparent;
+ 
 }
 
+
 .tab.active {
-  border-bottom-color: var(--accent-color);
+  border-bottom-color: var(--accent-color); 
+  transition: 1ms ease;
+  border-bottom: 2px solid var(--accent-color);
+} */
+
+.tabs {
+  display: flex;
+  gap: 10px;
 }
+
+.tab {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.tab::after {
+
+
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease-in-out;
+}
+
+.tab:hover::after,
+.tab.active::after {
+  width: 100%;
+}
+
 
 .tags {
   display: flex;
@@ -262,15 +321,22 @@ main {
 }
 
 .tag {
-  background-color: var(--accent-color);
+  background-color: transparent;
   color: var(--text-color);
-  border: none;
   padding: 0.25rem 0.5rem;
   border-radius: 15px;
+  border: 1px solid var(--accent-color);
   cursor: pointer;
 }
 
-/* Posts */
+.tag:hover {
+  outline-color: var(--accent-color);
+  box-shadow: -3px -3px 15px var(--accent-color);
+  transition: .1s;
+  transition-property: box-shadow;
+}
+
+
 .post {
   border-bottom: 1px solid var(--accent-color);
 }
@@ -289,6 +355,49 @@ main {
   background-color: var(--hover-bg-color);
 }
 
+.post-content-container .media-container {
+  aspect-ratio: 16, 9;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-content-container .media-container img {
+  aspect-ratio: 16, 9;
+  width: 700px;
+  object-fit: cover;
+}
+
+.post-detail-content-container {
+  overflow-y: auto;
+  scrollbar-width: none;
+  background-color: var(--bg-color);
+  height: 100%;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.post-detail {
+  height: 100%;
+}
+
+.post-detail-content-container .media-container {
+  aspect-ratio: 16, 9;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-detail-content-container .media-container img {
+  aspect-ratio: 16, 9;
+  width: 700px;
+  object-fit: cover;
+}
+
 .post h3 {
   margin-top: 0;
   color: var(--text-color);
@@ -302,7 +411,6 @@ main {
   opacity: 0.7;
 }
 
-/* Right Sidebar (Post Details) */
 .right-sidebar h2 {
   color: var(--neon-pink);
   margin-top: 0;
@@ -310,6 +418,27 @@ main {
 
 .comments {
   margin-top: 1rem;
+}
+
+.comment-container {
+  background-color: var(--accent-color);
+}
+
+.comment-content {
+  border: 1px solid var(--accent-color);
+  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-top: 5px;
+  border-radius: 15px;
+}
+
+.comment-content h3 {
+  font-size: 15px;
+  color: gray;
+}
+
+.comment-content p {
+  font-size: 18px;
 }
 
 .comment {
@@ -328,7 +457,6 @@ main {
   opacity: 0.7;
 }
 
-/* Auth Popup */
 .auth-popup {
   position: fixed;
   top: 0;
@@ -350,24 +478,24 @@ main {
 
 .auth-container h2 {
   text-align: center;
-  color: var(--neon-blue);
+  color: var(--accent-color);
 }
 
 .auth-container form {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .auth-.auth-container form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
 .auth-container input {
   padding: 0.5rem;
-  border: none;
+  border: 1px solid var(--text-color);
   border-radius: 5px;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -378,11 +506,194 @@ main {
   color: var(--text-color);
   border: none;
   padding: 0.5rem;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
-/* Responsive Design */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: #00bfff;
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.title::before,
+.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #00bfff;
+}
+
+.message,
+.signin {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.signin a {
+  color: #00bfff;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input+span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown+span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus+span,
+.form label .input:valid+span {
+  color: #00bfff;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input {
+  font-size: medium;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+  background-color: #00bfff;
+}
+
+.submit:hover {
+  background-color: #00bfff96;
+}
+
+.comment-bar {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.comment-bar input {
+  line-height: 28px;
+  padding: 0 1rem;
+  transition: .3s ease;
+  padding: 0.5rem;
+  width: 500px;
+  height: 20px;
+  border: 2px solid;
+  border-radius: 20px;
+  background-color: rgba(33, 33, 33, 0.294);
+  color: var(--text-color);
+  padding-left: 40px;
+  width: 100%;
+}
+
+
+.comment-bar .icon {
+  position: absolute;
+  left: 1rem;
+  fill: #9e9ea7;
+  width: 1rem;
+  height: 1rem;
+
+}
+
+.comment-bar input:focus {
+  color: rgb(255, 255, 255);
+  background-color: #212121;
+  outline-color: rgb(255, 255, 255);
+  box-shadow: -3px -3px 15px rgb(255, 255, 255);
+  transition: .1s;
+  transition-property: box-shadow;
+
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;

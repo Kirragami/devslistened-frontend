@@ -18,37 +18,29 @@
                 <div class="noti-button" id="notifications">
                     <img src="./images/notification.svg"/>
                 </div>
-                <button class="nav-right-btn">Create Post</button>
-                <button class="nav-right-btn login">Login</button>
+                <button id="createPostButton" class="nav-right-btn">Create Post</button>
+                <button id="loginButton" class="nav-right-btn login">Login</button>
             </div>
         </nav>
     </header>
     <main>
         <aside class="left-sidebar">
-            <h2>Game Communities</h2>
-            <ul>
-                <li>🎮 Minecraft</li>
-                <li>🚀 No Man's Sky</li>
-                <li>🏰 Valheim</li>
-                <li>🔫 Call of Duty</li>
-                <li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li>
-                <li>🧙‍♂️ Elden Ring</li><li>🧙‍♂️ Elden Ring</li>
+            <div class="left-sidebar-header">
+                <h2>Game Communities</h2>
+                <img src="./images/down-arrow.svg">
+            </div>
+                
+            
+            <ul id="left-sidebar-community-container">
+                
             </ul>
         </aside>
-        <section class="content">
+        <section class="content" id="main-content-container">
             <div class="tabs">
-                <button class="tab active" data-tab="gamers">Gamers</button>
+                <button class="tab active" data-tab="gamers">Players</button>
                 <button class="tab" data-tab="devs">Devs</button>
             </div>
-            <div class="tags" id="gamer-tags">
+            <!-- <div class="tags" id="gamer-tags">
                 <button class="tag">Gameplay Showcase</button>
                 <button class="tag">Help</button>
                 <button class="tag">Guide</button>
@@ -56,9 +48,12 @@
                 <button class="tag">Feature Request</button>
                 <button class="tag">Gameplay Discussion</button>
                 <button class="tag">Lore Discussion</button>
-            </div>
-            <div class="posts">
-                <div class="post" data-id="1">
+            </div> -->
+            <div class="posts" id="posts-container">
+               
+               
+               
+                <!-- <div class="post" data-id="1">
                     <div class="post-content-container">
                         <h3>Need help with Elden Ring boss</h3>
                         <p>I'm stuck on Margit, any tips?</p>
@@ -118,32 +113,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="post" data-id="3">
-                    <h3>Bug report: Texture glitch in No Man's Sky</h3>
-                    <p>Anyone else experiencing this weird texture bug on the new planets?</p>
-                    <div class="post-meta">
-                        <span>Posted by: StarExplorer</span>
-                        <span>Comments: 7</span>
+                <div class="post" data-id="1">
+                    <div class="post-content-container">
+                        <h3>Need help with Elden Ring boss</h3>
+                        <p>I'm stuck on Melania, any tips?</p>
+                        <div class="post-meta">
+                            <span>Posted by: EldenLord</span>
+                            <span>Comments: 15</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="post" data-id="3">
-                    <h3>Bug report: Texture glitch in No Man's Sky</h3>
-                    <p>Anyone else experiencing this weird texture bug on the new planets?</p>
-                    <div class="post-meta">
-                        <span>Posted by: StarExplorer</span>
-                        <span>Comments: 7</span>
+                <div class="post" data-id="1">
+                    <div class="post-content-container">
+                        <h3>Need help with Sekiro boss</h3>
+                        <p>I'm stuck on The Owl, any tips?</p>
+                        <div class="post-meta">
+                            <span>Posted by: EldenLord</span>
+                            <span>Comments: 15</span>
+                        </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
-        <aside class="right-sidebar">
-            <!-- This will be populated when a post is clicked -->
-        </aside>
     </main>
     <div id="auth-popup" class="auth-popup" style="display: none;">
         <div class="auth-container">
-            <h2>Welcome to GameConnect</h2>
+            <h2>Welcome to DevsListened</h2>
             <div class="tabs">
                 <button class="tab active" data-tab="login">Login</button>
                 <button class="tab" data-tab="signup">Sign Up</button>

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Tab switching
+ 
     const tabs = document.querySelectorAll(".tab");
     tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Post details
+   
     const posts = document.querySelectorAll(".post");
     const rightSidebar = document.querySelector(".right-sidebar");
     posts.forEach((post) => {
@@ -43,23 +43,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Auth popup
+
     const authPopup = document.getElementById("auth-popup");
-    const accountButton = document.getElementById("account");
-    if (accountButton) {
-        accountButton.addEventListener("click", () => {
+    const loginButton = document.getElementById("loginButton");
+    if (loginButton) {
+        loginButton.addEventListener("click", () => {
             authPopup.style.display = "flex";
         });
     }
 
-    // Close auth popup when clicking outside
+
     authPopup.addEventListener("click", (e) => {
         if (e.target === authPopup) {
             authPopup.style.display = "none";
         }
     });
 
-    // Auth tab switching
+   
     const authTabs = authPopup.querySelectorAll(".tab");
     const authForms = authPopup.querySelectorAll("form");
     authTabs.forEach((tab) => {
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Prevent form submission (for demo purposes)
+    
     authForms.forEach((form) => {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -80,41 +80,130 @@ document.addEventListener("DOMContentLoaded", () => {
             authPopup.style.display = "none";
         });
     });
+
+    async function fetchCommunities() {
+        try {
+            const response = await fetch('http://localhost:3000/community');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const container = document.getElementById('left-sidebar-community-container');
+            
+            if (!container) {
+                console.error('Container element not found');
+                return;
+            }
+            
+            container.innerHTML = data.map(community => `
+                <li>
+                    <div class="left-sidebar-game-community">
+                        <img src="${community.icon}">
+                        <span>${community.name}</span>
+                    </div>
+                </li>
+            `).join('');
+        } catch (error) {
+            console.error('Error fetching community data:', error);
+        }
+    }
+
+    async function fetchPosts() {
+        try {
+            const response = await fetch('http://localhost:3000/post');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const container = document.getElementById('posts-container');
+            
+            if (!container) {
+                console.error('Container element not found');
+                return;
+            }
+            
+            container.innerHTML = data.map(post => `
+                <div class="post" data-id="1" onclick='openPost(${post.id})'>
+                    <div class="post-content-container">
+                        <h3>${post.header}</h3>
+                        <p>${post.content}</p>
+                        <div class="media-container">
+                            <img src="${post.media}">
+                        </div>
+                        <div class="post-meta">
+                            <span>Posted by: EldenLord</span>
+                            <span>Comments : ${post.comments.length}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            
+        } catch (error) {
+            console.error('Error fetching community data:', error);
+        }
+    }
+
+    fetchPosts();
+    fetchCommunities();
 });
 
-// Mock function to get post details
-function getPostDetails(postId) {
-    const posts = {
-        1: {
-            title: "Need help with Elden Ring boss",
-            content: "I'm stuck on Margit, any tips? I've tried using spirit ashes and leveling up my weapon, but I still can't seem to beat him. Any specific strategies or builds that work well against this boss?",
-            author: "EldenLord",
-            comments: 15,
-            commentList: [
-                { author: "SoulsMaster", content: "Try using the Jellyfish spirit ash, it's surprisingly effective!" },
-                { author: "TarnishedOne", content: "Level up your vigor and use a shield with 100% physical block." },
-            ],
-        },
-        2: {
-            title: "Minecraft: Check out my new build!",
-            content: "Just finished this massive castle, what do you think? It took me over 100 hours to complete. I used a mix of stone bricks, deepslate, and prismarine for a unique color palette. The interior is fully furnished with functional rooms.",
-            author: "BlockMaster",
-            comments: 42,
-            commentList: [
-                { author: "RedstoneWizard", content: "Wow, the detail on those towers is incredible!" },
-                { author: "DiamondMiner", content: "Love the use of prismarine, it adds a nice pop of color." },
-            ],
-        },
-        3: {
-            title: "Bug report: Texture glitch in No Man's Sky",
-            content: "Anyone else experiencing this weird texture bug on the new planets? Whenever I land on a planet with the new biome, some of the textures start flickering and turning into a strange checkerboard pattern. It's making the game nearly unplayable for me.",
-            author: "StarExplorer",
-            comments: 7,
-            commentList: [
-                { author: "GalacticPioneer", content: "I've seen this too! It seems to happen more often on planets with extreme weather." },
-                { author: "AtlasInterface", content: "Have you tried verifying your game files? That fixed a similar issue for me." },
-            ],
-        },
-    };
-    return posts[postId];
+async function openPost(postId) {
+    const mainContentContainer = document.getElementById("main-content-container");
+
+    try {
+        const response = await fetch(`http://localhost:3000/post/${postId}`);
+        if (!response.ok) throw new Error("Failed to fetch post");
+
+        const post = await response.json();
+
+        
+        mainContentContainer.innerHTML = `
+            <div class="post post-detail" data-id="${post.id}">
+                <div onclick="goBack()" class="post-detail-content-container">
+                    <a href="./index.html"><img id="back-button" src="./images/back-arrow.svg"></a>
+                    <h3>${post.header}</h3>
+                    <p>${post.content}</p>
+                    <div class="media-container">
+                        <img src="${post.media}" alt="Post Image">
+                    </div>
+                    <div class="post-meta">
+                        <span>Posted by: EldenLord</span>
+                        <span>Comments: ${post.comments.length}</span>
+                    </div>
+                    <div class="comment-bar">
+                        <input type="text" id="new-comment" placeholder="Add a comment...">
+                    </div>
+                    <div id="comment-container"></div>
+                </div>
+            </div>
+        `;
+
+   
+        const commentContainer = document.getElementById("comment-container");
+
+        const userIds = [...new Set(post.comments.map(comment => comment.postedBy))];
+
+ 
+        const userResponses = await Promise.all(
+            userIds.map(id => fetch(`http://localhost:3000/user/${id}`).then(res => res.json()))
+        );
+
+        const userMap = Object.fromEntries(userResponses.map(user => [user.id, user.username]));
+
+        commentContainer.innerHTML = post.comments.map(comment => 
+            `<div class="comment-content">
+                <h3>${userMap[comment.postedBy]}</h3>
+                <p>${comment.content}</p>
+            </div>`
+        ).join('');
+
+    } catch (error) {
+        console.error("Error loading post:", error);
+        mainContentContainer.innerHTML = "<p>Failed to load post.</p>";
+    }
 }
+
+
